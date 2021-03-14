@@ -17,22 +17,25 @@
 // Pseudo-code : LOOP 16284--24575 == -1 (BLACK) when 24576 is not 0 else 16284--24575 == 0 (WHITE)
 
 
-// check if any key is pressed or not
 
-	
+
+(MEMOLIMIT)      // Loop back again !! when screen memory is full	
 	@KBD
-	D=A		//memory check make memory limit to RAM[last]-1
+	D=A		
 	@MEMOLIMIT
 	M=D
+	
 
-	@SCREEN
+	@SCREEN		// First initailise base value for BLACK and WHITE screen 
 	D=A
 	@BLACK_INT
 	M=D
 	@WHITE_INT
 	M=D
+
 	
-(CHECK)
+(CHECK)		// Continue checking if key is pressed or not ?
+	
 	@KBD
 	D=M
 	@CHECK
@@ -47,10 +50,14 @@
 	M;JEQ
 	@CHECK
 	0;JMP
-
+	
+	// Write white on screen !!!
 	
 (WHITE)
-	
+	@SCREEN
+	D=A
+	@BLACK_INT
+	M=D
 	@WHITE_INT
 	D=M
 	@MEMOLIMIT
@@ -67,10 +74,13 @@
 	0;JMP
 		
 	
-	// write black on screen
+	// Write black on screen !!!
 (BLACK)
 	
-
+	@SCREEN
+	D=A
+	@WHITE_INT
+	M=D
 	@BLACK_INT
 	D=M
 	@MEMOLIMIT
@@ -86,15 +96,3 @@
 	@BLACK
 	0;JMP
 
-
-	// write white on screen
-
-
-	
-(MEMOLIMIT)
-	@END
-	0;JMP
-
-(END)
-	@END
-	0;JMP
